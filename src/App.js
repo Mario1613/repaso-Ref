@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
 
-function App() {
+const App = () => {
+  const [contador, cambiarContador] = useState(0);
+  const name = useRef("Mario");
+
+  const cuentaRenderizado = useRef();
+  console.log(cuentaRenderizado);
+
+  useEffect(() => {
+    if (cuentaRenderizado.current === 0) {
+      cuentaRenderizado.current = cuentaRenderizado.current + 1;
+      return;
+    }
+    console.log(`El contador se actualizo y su valor es ${contador}`);
+  }, [contador]);
+
+  const changeName = () => {
+    name.current = "Cortez";
+    console.log(`You new name is : ${name.current}`);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Contador: {contador}</h1>
+      <button onClick={() => cambiarContador(contador + 1)}>+1</button>
+      <br />
+      <h1>Name: {name.current} </h1>
+      <button onClick={changeName}>Change name</button>
     </div>
   );
-}
+};
 
 export default App;
